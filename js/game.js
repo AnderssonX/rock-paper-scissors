@@ -1,14 +1,32 @@
 // Variable to store computer's weapon
 let computerChoice;
 let playerChoice;
+let rounds = 0;
+let playerScore = 0;
+let computerScore = 0;
 
 // Initiate game
-startGame();
 
+game(); 
+
+function game(){
+    for (let i = 0; i < 5; i++){
+playRound();
+
+checkResult(playerChoice, computerChoice);
+console.log("Current score - You: "+playerScore+" Computer: "+computerScore)
+}
+if (playerScore > computerScore){
+return console.log("You won! "+playerScore+" against "+computerScore);    
+}else if (playerScore < computerScore) {
+return console.log("Computer won. "+computerScore+" against "+playerScore);    
+} else {
+return(console.log("It's a draw! "+playerScore+" against "+computerScore))
+}
+}
 
 // Function to initiate the game
-function startGame() {
-  console.log("Game initiated");
+function playRound() {
 
   // Prompt player for weapon choice
   playerChoice = prompt('Choose your weapon. "Rock", "Paper" or "Scissor"');
@@ -17,7 +35,7 @@ function startGame() {
   playerChoice =
     playerChoice.charAt(0).toUpperCase() +
     playerChoice.substring(1).toLowerCase();
-  console.log('User chose: "' + playerChoice + '"');
+  
 
   // Check user's weapon choice and start game on valid option.
   if (
@@ -28,7 +46,8 @@ function startGame() {
     getComputerChoice();
   } else {
     console.log('"' + playerChoice + "  is not a valid option");
-    console.log("Use startGame() or reload page to play again...");
+    console.log("Choose again");
+    playRound();
   }
 
   // Function to get computer's weapon choice
@@ -49,33 +68,41 @@ function startGame() {
       computerChoice = "Scissors";
     }
 
-    // Return computer's choice
+    // Show computer's choice in log
+    // console.log("Computer chose: " + computerChoice);
 
-    console.log("Compter chose: " + computerChoice);
-
-    checkResult(playerChoice, computerChoice);
   }
 }
 
-// check values and determine a winner.
+// check values and return winner;
 function checkResult(playerChoice, computerChoice) {
+    console.log("You chose \""+playerChoice+"\", computer chose \""+computerChoice+"\"")
   if (playerChoice === "Rock" && computerChoice === "Paper") {
-    console.log("It's a draw! Rock vs rock!");
+    console.log("That's a draw!");
+    return "draw";
   } else if (playerChoice === "Rock" && computerChoice === "Rock") {
-    console.log("You lose! Paper beats rock!");
+    console.log("Computer won the round, paper beats rock!");
+    return computerScore++;
   } else if (playerChoice === "Rock" && computerChoice === "Scissors") {
-    console.log("You win! Rock beats scissors!");
+    console.log("You won the round! Rock beats scissors!");
+    return playerScore++;
   } else if (playerChoice === "Paper" && computerChoice === "Paper") {
-    console.log("It's a draw! Paper vs paper!");
+    console.log("That's a draw!");
+    return "draw";
   } else if (playerChoice === "Paper" && computerChoice === "Rock") {
-    console.log("You win! Paper beats rock!");
+    console.log("You won the round! Paper beats rock!");
+    return playerScore++;
   } else if (playerChoice === "Paper" && computerChoice === "Scissors") {
-    console.log("You lose! Scissors beats paper!");
+    console.log("Computer won the round! Scissors beats paper!");
+    return computerScore++;
   } else if (playerChoice === "Scissors" && computerChoice === "Paper") {
-    console.log("You win! Scissors beats paper!");
+    console.log("You won the round! Scissors beats paper!");
+    return playerScore++;
   } else if (playerChoice === "Scissors" && computerChoice === "Rock") {
-    console.log("You lose! Rock beats scissors!");
+    console.log("You lost the round! Rock beats scissors!");
+    return computerScore++;
   } else if (playerChoice === "Scissors" && computerChoice === "Scissors") {
     console.log("It's a draw! Scissors vs scissors");
+    return "draw";
   }
 }
