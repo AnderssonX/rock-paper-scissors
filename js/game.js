@@ -1,6 +1,6 @@
 // Variable to store computer's weapon
 let computerChoice; 
-
+startGame();
 // Function to initiate the game
 function startGame() {
   console.log("Game initiated");
@@ -9,17 +9,16 @@ function startGame() {
   let playerChoice = prompt(
     "Choose your weapon. \"Rock\", \"Paper\" or \"Scissor\""); 
 
-    // Capitalize user's input
+    // Capitalize first letter in user's input
 playerChoice = playerChoice.charAt(0).toUpperCase()+playerChoice.substring(1).toLowerCase();
-console.log(playerChoice+" yes");
+console.log("User input: \""+playerChoice+"\"");
 
 // Check user's weapon choice and start game on valid option.
   if (playerChoice === "Rock" || playerChoice === "Paper" || playerChoice === "Scissors") {
     getComputerChoice();
   } else {
-    console.log(playerChoice);
-    console.log("Invalid choice, please choose 1, 2 or 3. Reload to play again");
-    console.log("Use startGame() to play again...");
+    console.log("\""+playerChoice+"\  is not a valid option");
+    console.log("Use startGame() or reload page to play again...");
     }
 }
 
