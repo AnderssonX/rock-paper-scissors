@@ -7,12 +7,9 @@ function startGame() {
 
   // Prompt player for weapon choice
   let playerChoice = prompt(
-    "Choose your weapon. 1 = rock, 2 = paper & 3 = scissors"); 
+    "Choose your weapon. \"Rock\", \"Paper\" or \"Scissor\""); 
 
-// Parse user's input to int
-playerChoice = parseInt(playerChoice);
-
-// Get computer's weapon choice if user input 1, 2 or 3 otherwise restart game.  
+// Check user's weapon choice and start game on valid option.
   if (playerChoice === 1 || playerChoice === 2 || playerChoice === 3) {
     getComputerChoice();
   } else {
