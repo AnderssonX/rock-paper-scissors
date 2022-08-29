@@ -9,8 +9,12 @@ function startGame() {
   let playerChoice = prompt(
     "Choose your weapon. \"Rock\", \"Paper\" or \"Scissor\""); 
 
+    // Capitalize user's input
+playerChoice = playerChoice.charAt(0).toUpperCase()+playerChoice.substring(1).toLowerCase();
+console.log(playerChoice+" yes");
+
 // Check user's weapon choice and start game on valid option.
-  if (playerChoice === 1 || playerChoice === 2 || playerChoice === 3) {
+  if (playerChoice === "Rock" || playerChoice === "Paper" || playerChoice === "Scissors") {
     getComputerChoice();
   } else {
     console.log(playerChoice);
