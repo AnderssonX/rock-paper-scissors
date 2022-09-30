@@ -1,0 +1,191 @@
+
+html, body {
+    /* background-image: url(background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; */
+    background-color: rgb(90, 90, 90);
+    
+    
+    }
+    
+    .gameArea {
+        display: flex;
+        background-color: rgb(90, 90, 90);
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 25px;
+    
+    }
+
+    .round {
+        
+          display: flex;
+            font-size: 100px;
+            text-align: center;
+            justify-content: center;
+            
+            
+            color: rgb(228, 228, 228);
+            }
+    
+    .gameCards {
+        display: flex;
+        background-color: rgb(90, 90, 90);
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;  
+            
+    }
+
+    .playerCard {
+        padding: 25px;
+        background-color: rgb(90, 90, 90);
+        width: 170px;
+            height: 170px;
+        transition: 0.5s;
+        border: thick solid rgb(50, 50, 50) !important;
+        border-radius: 12px;
+    }
+
+    .vs {
+        background-color: rgb(90, 90, 90);
+font-size: 100px;
+color: white;
+margin-left: 25px;
+margin-right: 25px;
+
+transition: 0.5s;
+    }
+
+
+    .computerCard {
+        background-color: rrgb(90, 90, 90);
+        width: 170px;
+        padding: 25px;
+        height: 170px;
+        border: thick solid rgb(50, 50, 50) !important;
+        transition: .5s;
+    }
+
+    
+
+    .buttons {
+        display: flex;
+    background-color: rgb(90, 90, 90);
+        
+        flex-direction: row;
+        justify-content: center;
+        
+        align-items: center;
+        
+    }
+
+    #uiText {
+        display: flex;
+        background-color: rgb(90, 90, 90);
+
+            flex-direction: row;
+            justify-content: center;
+            
+            align-items: center;  
+    }
+
+    .pScore {
+        background-color: rgb(90, 90, 90);
+        
+            
+        
+
+    }
+
+    .cScore {
+        background-color: rgb(90, 90, 90);
+        
+        
+        
+    }
+
+        #uiOutcome {
+            display: flex;
+            align-items: center;
+            background-color: rgb(90, 90, 90);
+            justify-content: center;
+            height: auto;
+            margin: 0 auto;
+            width: 400px;
+            
+        
+    }
+
+    #uiCurrentScore {
+        display: flex;
+        align-items: center;
+        background-color: rgb(90, 90, 90);
+        justify-content: center;
+        
+        margin: 0 auto;
+        width: 400px;
+        
+
+    }
+
+    #score {}
+    button {
+        margin: 52px;
+    }
+
+    #rock, #paper, #scissors {
+        background-color:rgb(166, 166, 166);
+        border: 0px;
+        background-size:auto;
+        padding: 12px;
+        border-radius: 12px;
+        border: thick solid rgb(40, 40, 40);
+        border-radius: 50%;   
+        transition: .1s;
+    }
+
+    #rock:hover, #paper:hover, #scissors:hover {
+        background-color:rgb(166, 166, 166) !important;
+        border: thick solid rgb(9, 250, 130) !important;
+        transition: .1s;
+    }
+    
+    
+
+    #reset {
+        height: 60px;
+        width: 200px;
+    }
+
+    .scoreBoard {
+        
+            display: flex;
+            background-color: green;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;  
+            }
+    
+    .pScore{
+        display: flex;
+        font-size: 100px;
+        font-weight: bold;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        color: rgb(228, 228, 228);
+
+    }
+    .cScore{
+        display: flex;
+        font-size: 100px;
+        font-weight: bold;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        color: rgb(228, 228, 228);
+        }
+
+       
+        
