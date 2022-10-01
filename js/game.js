@@ -1,44 +1,64 @@
-// Variable to store computer's weapon
-let computerChoice;
-let playerChoice;
-let rounds = 0;
-let playerScore = 0;
-let computerScore = 0;
-let gameOver = false;
-let clickSound = new Audio ('click.mp3');
-let lost = new Audio ('_click.mp3');
+let computerChoice;       // stores computer's weapon choice
+let playerChoice;         // stores player's weapon choice
+let rounds = 1;           // counts rounds
+let playerScore = 0;      // keeps track of player's score  
+let computerScore = 0;    // keeps track of computer's score
+let gameOver = false;     // to check if game is over
 
-const rockButton = document.getElementById("rock");
-const vs = document.getElementById("vs");
-const paperButton = document.getElementById("paper");
-const resetButton = document.getElementById("reset");
-const scissorsButton = document.getElementById("scissors");
-const uiText = document.getElementById("uiText");
-const uiOutcome = document.getElementById("uiOutcome");
-const playerCard = document.getElementById("playerCard");
-const computerCard = document.getElementById("computerCard");
-const pScore = document.getElementById("pScore");
-const cScore = document.getElementById("cScore");
-console.log(uiText);
-// uiText.innerText = "";
-const currentScore = document.getElementById("score");
-const round = document.getElementById("round");
-// score.innerText = ("You: "+playerScore+" - Computer: "+computerScore);
-// Initiate the game.
-// game(); 
+const playerSound = new Audio ('sound/playerScore.wav');      // play when player wins the round
+const computerSound = new Audio ('sound/computerScore.wav');  // play when computer wins the round
+const drawSound = new Audio ('sound/drawScore.wav')           // play if the round is a draw
 
-round.textContent = ((playerScore)+" - "+(computerScore));       
+const playerImage = document.getElementById("playerImage");     // show when player wins the round
+const computerImage = document.getElementById("computerImage"); // show when computer wins the round
 
-function paintScore() {
-//   pScore.textContent = (playerScore);
-// cScore.textContent = (computerScore);
-round.textContent = ((playerScore)+" - "+(computerScore));       
+const leftScoreLabel = document.getElementById("leftScoreLabel");   // displays player score
+const roundLabel = document.getElementById("roundLabel");           // displays current round
+const rightScoreLabel = document.getElementById("rightScoreLabel"); // displays computer score
+const outcomeLabel = document.getElementById("outcomeLabel");       // shows round outcome message
+const playerCard = document.getElementById("playerCard");           // shows player's chosen weapon for the round
+const computerCard = document.getElementById("computerCard");       // shows computer's chosen weapon for the round
+
+const paperButton = document.getElementById("paper");               // paper button
+const rockButton = document.getElementById("rock");                 // rock button
+const scissorsButton = document.getElementById("scissors");         // scissor button
+const messageLabel = document.getElementById("messageLabel");       // to dislay some messages to player during game
+
+const resetButton = document.getElementById("reset");   // Button that calls on reset game function between games
+
+
+
+
+// Update scores on screen and display image on scoring side.
+// Passing "player", "compuyter" or "draw" to roundWinner to establish scoring side.
+
+function updateScores(roundWinner) {
+if (roundWinner === "player"){
+playerSound.play();  
+playerImage.style.background = "url('playerScore.png') no-repeat";
+playerImage.style.backgroundSize = "contain";
+computerImage.style.background = "url('') no-repeat";
+}
+if (roundWinner === "computer"){
+  computerSound.play();
+computerImage.style.background = "url('computerScore.png') no-repeat";
+computerImage.style.backgroundSize = "contain";
+playerImage.style.background = "url('') no-repeat";
+}
+if (roundWinner === "draw"){
+  drawSound.play();
+  playerImage.style.background = "url('') no-repeat";
+  computerImage.style.background = "url('') no-repeat";
+}
+
+leftScoreLabel.textContent = (playerScore);
+rightScoreLabel.textContent = (computerScore);
 }
 
 function game(){
   console.log("Current round ="+rounds);
    
-  //round.textContent = ("Round "+(rounds));       
+   
     // for (let i = 0; i < 5; i++){
     
 
@@ -49,27 +69,11 @@ playRound(playerChoice);
 
 checkResult(playerChoice, computerChoice);
 
-
-
-
-// currentScore.textContent = ("Current score - You: "+playerScore+" Computer: "+computerScore);
-
-      
-// }
-
-
 }
-// Function to initiate the game
+
 function playRound() {
   
-  // Prompt player for weapon choice
-  // playerChoice = prompt('Choose your weapon. "Rock", "Paper" or "Scissor"');
-
-  // Capitalize first letter in user's input
-  // playerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.substring(1).toLowerCase();
   
-
-  // Check user's weapon choice and start game on valid option.
   if (
     playerChoice === "Rock" ||
     playerChoice === "Paper" ||
@@ -118,50 +122,90 @@ function playRound() {
 function checkResult(playerChoice, computerChoice) {
 
   
-  // uiText.textContent = ("You chose \""+playerChoice+"\", computer chose \""+computerChoice+"\" ")
+  // Computer score
   if (playerChoice === "Rock" && computerChoice === "Paper") {
-//  uiOutcome.textContent = ("Computer won the round! Paper beats rock!");
+  outcomeLabel.textContent = ("Paper beats rock!");
     computerScore++;
+    updateScores("computer");
+  
+  // Draw
   } else if (playerChoice === "Rock" && computerChoice === "Rock") {
-    // uiOutcome.textContent = ("That's a draw!");
-    
-    
+    outcomeLabel.textContent = ("Rock against rock, no score!");
+    updateScores("draw");
+
+  // Player score
   } else if (playerChoice === "Rock" && computerChoice === "Scissors") {
-    // uiOutcome.textContent = ("You won the round! Rock beats scissors!");
+    outcomeLabel.textContent = ("Rock beats scissors!");
      playerScore++;
-  } else if (playerChoice === "Paper" && computerChoice === "Paper") {
-    // uiOutcome.textContent = ("That's a draw!");
-    
+     updateScores("player");
+
+  // Draw
+    } else if (playerChoice === "Paper" && computerChoice === "Paper") {
+    outcomeLabel.textContent = ("Paper against paper, no score!");
+    updateScores("draw");
+
+  // Player score 
   } else if (playerChoice === "Paper" && computerChoice === "Rock") {
-    // uiOutcome.textContent = ("You won the round! Paper beats rock!");
+    outcomeLabel.textContent = ("Paper beats rock!");
    playerScore++;
+   updateScores("player");
+  
+  // Computer score 
   } else if (playerChoice === "Paper" && computerChoice === "Scissors") {
-    // uiOutcome.textContent = ("Computer won the round! Scissors beats paper!");
+    outcomeLabel.textContent = ("Scissors beats paper!");
   computerScore++;
-  } else if (playerChoice === "Scissors" && computerChoice === "Paper") {
-    // uiOutcome.textContent = ("You won the round! Scissors beats paper!");
+  updateScores("computer");
+
+// Player score
+} else if (playerChoice === "Scissors" && computerChoice === "Paper") {
+    outcomeLabel.textContent = ("Scissors beats paper!");
      playerScore++;
-  } else if (playerChoice === "Scissors" && computerChoice === "Rock") {
-    // uiOutcome.textContent = ("You lost the round! Rock beats scissors!");
+     updateScores("player");
+  
+  // Computer score
+    } else if (playerChoice === "Scissors" && computerChoice === "Rock") {
+    outcomeLabel.textContent = ("Rock beats scissors!");
      computerScore++;
-  } else if (playerChoice === "Scissors" && computerChoice === "Scissors") {
-    // uiOutcome.textContent = ("It's a draw! Scissors vs scissors");
-    
+     updateScores("computer");
+  
+  // Draw
+    } else if (playerChoice === "Scissors" && computerChoice === "Scissors") {
+    outcomeLabel.textContent = ("Scissors against scissors, no score!");
+    updateScores("draw");
   }
-  console.log("paintscore1")
-  paintScore();
-  if (rounds == 5){
+  
+  
+  if (rounds == 6){
+    
+    if (playerScore > computerScore){
+      messageLabel.innerText = "";
+      roundLabel.innerText ="You won the game!"
+      playerImage.style.background = "url('playerScore.png') no-repeat";
+      playerImage.style.backgroundSize = "contain";
+      computerImage.style.background = "url('') no-repeat";
+    }
+    if (playerScore < computerScore){
+      messageLabel.innerText = "";
+      roundLabel.innerText = "Computer won the game!";
+      playerImage.style.background = "url('') no-repeat";
+      computerImage.style.background = "url('computerScore.png') no-repeat";
+        computerImage.style.backgroundSize = "contain";
+    }
+    if (playerScore = computerScore){
+      messageLabel.innerText = ""
+      roundLabel.innerText = "The game is a draw!"
+    }
    rockButton.hidden = true;
   scissorsButton.hidden = true;
   paperButton.hidden = true;
   resetButton.hidden = false;
 
     gameOver = true;
-    rounds = 0;
+    rounds = 1;
     // pScore.textContent = "0";
 // cScore.textContent = "0";
   if (playerScore > computerScore){
-    console.log("paintscore2")
+    // console.log("paintscore2")
     paintScore();
     
  
@@ -171,8 +215,8 @@ function checkResult(playerChoice, computerChoice) {
   
   return; 
   }else if (playerScore < computerScore) {
-    console.log("paintscore3")
-    paintScore();
+    
+    updateScores();
     
     
     //currentScore.textContent = ("Game over! Computer won, "+computerScore+" against "+playerScore);    
@@ -180,8 +224,8 @@ function checkResult(playerChoice, computerChoice) {
   computerScore = 0;
   return; 
   } else {
-    console.log("paintscore4")
-    paintScore();
+    
+    updateScores();
     
     
     // currentScore.textContent = ("Game over, and it's a draw! "+playerScore+" against "+computerScore);
@@ -196,62 +240,70 @@ function checkResult(playerChoice, computerChoice) {
 
 function initiate (e){
   if (gameOver) {
+    
 computerScore = 0;
 playerScore = 0;
+
 gameOver = false;
 console.log("Uh oh, game is over!")
 // round.textContent = "Round 1";
   }
   else {
-    vs.textContent =("VS");
-    clickSound.play();
+    // vs.textContent =("VS");
+    // clickSound.play();
+    
     console.log("game is not over!")
 playerChoice = this.id.toString();
 playerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.substring(1).toLowerCase();
 console.log(playerChoice);
 if (playerChoice == "Rock"){
-  rockButton.style.border = "thick solid rgb(9, 250, 130)";
-  rockButton.style.backgroundColor = "rgb(166, 166, 166)";
-  paperButton.style.border = "thick solid rgb(40, 40, 40)";
-  scissorsButton.style.border = "thick solid rgb(40, 40, 40)";
+  
   playerCard.style.background = "url('rock.png') no-repeat";
     playerCard.style.backgroundSize = "contain";
 } else if (playerChoice == "Paper") {
-  paperButton.style.backgroundColor = "rgb(166, 166, 166)";
-  rockButton.style.border = "thick solid rgb(40, 40, 40)";
-  paperButton.style.border = "thick solid rgb(9, 250, 130)";
-  scissorsButton.style.border = "thick solid rgb(40, 40, 40)";
+  
   playerCard.style.background = "url('paper.png') no-repeat";
   playerCard.style.backgroundSize = "contain";
 } else if (playerChoice == "Scissors") {
-  scissorsButton.style.backgroundColor = "rgb(166, 166, 166)";
-  rockButton.style.border = "thick solid rgb(40, 40, 40)";
-  paperButton.style.border = "thick solid rgb(40, 40, 40)";
-  scissorsButton.style.border = "thick solid rgb(9, 250, 130)";
+  
   playerCard.style.background = "url('scissors.png') no-repeat";
   playerCard.style.backgroundSize = "contain";
 }
 rounds ++; 
+roundLabel.textContent = ("Round "+(rounds));      
 game();
 
 }
 }
 
 function reset()  {
-resetButton.hidden = true;
-rockButton.hidden = false;
-paperButton.hidden = false;
-scissorsButton.hidden = false;
-rockButton.style.border = "thick solid gray";
-  paperButton.style.border = "thick solid gray";
-  scissorsButton.style.border = "thick solid gray";
-round.textContent = ((playerScore)+" - "+(computerScore));
-vs.textContent ="";
-playerCard.style.backgroundImage = "";
-computerCard.style.backgroundImage = "";
-initiate();
+  rounds = 1;
+  roundLabel.innerText = "Round "+rounds;
+  resetButton.hidden = true;
+  rockButton.hidden = false;
+  paperButton.hidden = false;
+  scissorsButton.hidden = false;
+  rockButton.style.border = "thick solid rgb(40, 40, 40)";
+    paperButton.style.border = "thick solid rgb(40, 40, 40)";
+    scissorsButton.style.border = "thick solid rgb(40, 40, 40)";
+  
+  leftScoreLabel.textContent = (playerScore);
+  rightScoreLabel.textContent = (computerScore);
+  
+  playerCard.style.backgroundImage = "";
+  computerCard.style.backgroundImage = "";
+  playerImage.style.backgroundImage = "";
+  computerImage.style.backgroundImage = "";
+  outcomeLabel.innerText = "";
+  leftScoreLabel.innerText = "0";
+  rightScoreLabel.innerText = "0";
+  messageLabel.innerText = "Choose your weapon!";
+  
+  initiate();
+  
+  }
 
-}
+
 
 rockButton.addEventListener('click', initiate);
 paperButton.addEventListener('click', initiate);
